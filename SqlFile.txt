@@ -1,0 +1,24 @@
+﻿create database notes;
+use notes;
+
+create procedure sp_insert_note 
+@title varchar(30),
+@notes text
+AS 
+BEGIN
+insert into notes(title, notes) values(@title, @notes)
+END
+
+create table notes(
+id int primary key identity,
+title varchar(30),
+notes  text,
+active char(1) default 'Y'
+)
+
+
+create procedure sp_select_note 
+AS 
+BEGIN
+select id, title, notes from notes where active ='Y';
+END
