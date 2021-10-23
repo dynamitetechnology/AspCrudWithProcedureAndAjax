@@ -22,3 +22,23 @@ AS
 BEGIN
 select id, title, notes from notes where active ='Y';
 END
+
+
+
+create procedure sp_update_note 
+@title varchar(30),
+@notes text,
+@id int
+AS 
+BEGIN
+update notes set title = @title, notes= @notes where id = @id
+END
+
+
+
+create procedure sp_delete_note 
+@id int
+AS 
+BEGIN
+update notes set active = 'N' where id = @id
+END

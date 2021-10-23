@@ -40,8 +40,72 @@ namespace AspCrudWithProcedureAndAjax
                 return "Fail";
             }
             con.Close();
-          
         }
+
+
+        [WebMethod]
+        public static string UpdateNote(string title, string note, int id)
+        {
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("sp_update_note", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@id", id);
+                cmd.Parameters.AddWithValue("@title", title);
+                cmd.Parameters.AddWithValue("@notes", note);
+                int status = cmd.ExecuteNonQuery();
+                if (status > 0)
+                {
+                    return "Success";
+                }
+                else
+                {
+                    return "Fail";
+                }
+            }catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                con.Close();
+            }
+            return null;
+        }
+
+
+        [WebMethod]
+        public static string deleteNote(int id)
+        {
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("sp_delete_note", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@id", id);
+                int status = cmd.ExecuteNonQuery();
+                if (status > 0)
+                {
+                    return "Success";
+                }
+                else
+                {
+                    return "Fail";
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                con.Close();
+            }
+            return null;
+        }
+
+
         [WebMethod]
         public static string getNote()
         {
